@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexuss Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7e57c2;
+            --primary-dark: #5e35b1;
+            --secondary: #26a69a;
+            --secondary-dark: #00897b;
+            --accent: #ff7043;
+            --dark: #1a1a2e;
+            --darker: #11111d;
+            --light: #f8f9ff;
+            --light-gray: #e9ecef;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --border-radius-sm: 8px;
+            --border-radius-md: 16px;
+            --border-radius-lg: 24px;
+            --transition-fast: all 0.2s ease;
+            --transition-normal: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-blur: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--light);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(126, 87, 194, 0.1) 0%, rgba(38, 166, 154, 0.1) 70%);
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            font-size: 2.8rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            background: linear-gradient(to right, #ffffff, var(--light-gray));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .logo-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 650px;
+            margin: 0 auto;
+            margin-top: 12px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .divider {
+            height: 2px;
+            width: 80px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+            margin: 25px auto;
+            border-radius: 1px;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            z-index: -1;
+            transition: var(--transition-normal);
+        }
+
+        .card:hover::before {
+            opacity: 0.3;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .card-title i {
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+
+        /* Form Styles */
+        .form-card {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: white;
+            font-size: 1.05rem;
+            letter-spacing: 0.3px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            transition: var(--transition-fast);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(38, 166, 154, 0.3);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 300;
+        }
+
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 16px 28px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: var(--transition-normal);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20px;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(25deg);
+            transition: var(--transition-fast);
+        }
+
+        .btn:hover::after {
+            left: 120%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Projects Grid */
+        .projects-section {
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .project-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-lg);
+            padding: 30px 25px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-normal);
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(126, 87, 194, 0.1), rgba(38, 166, 154, 0.1));
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition-normal);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .project-icon-container {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 22px;
+            transition: var(--transition-normal);
+        }
+
+        .project-card:hover .project-icon-container {
+            background: rgba(38, 166, 154, 0.2);
+            transform: scale(1.1);
+        }
+
+        .project-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            transition: var(--transition-normal);
+        }
+
+        .project-card:hover .project-icon {
+            color: white;
+            transform: rotate(10deg);
+        }
+
+        .project-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: white;
+            transition: var(--transition-normal);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-card:hover .project-name {
+            color: var(--secondary);
+        }
+
+        .project-link {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            margin-top: 8px;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+            transition: var(--transition-normal);
+        }
+
+        .project-card:hover .project-link {
+            color: white;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .empty-icon {
+            font-size: 6rem;
+            color: rgba(255, 255, 255, 0.15);
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .empty-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .empty-text {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.7;
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 18px 25px;
+            border-radius: var(--border-radius-sm);
+            color: white;
+            font-weight: 600;
+            font-size: 1.05rem;
+            box-shadow: var(--shadow-lg);
+            transform: translateX(120%);
+            transition: var(--transition-normal);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 350px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(to right, var(--secondary), #26a69a);
+        }
+
+        .toast.error {
+            background: linear-gradient(to right, var(--accent), #ff5722);
+        }
+
+        .toast i {
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.05rem;
+            margin-top: 20px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .signature {
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .copyright {
+            margin-top: 8px;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 300;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .logo-text {
+                font-size: 2.8rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 2.4rem;
+            }
+            
+            .logo-subtitle {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+            
+            .card {
+                padding: 25px 20px;
+            }
+            
+            .card-title {
+                font-size: 1.4rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 30px 0 20px;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .logo-icon {
+                font-size: 2.2rem;
+            }
+            
+            .logo-text {
+                font-size: 2rem;
+                text-align: center;
+            }
+            
+            .logo-subtitle {
+                font-size: 0.95rem;
+            }
+            
+            .card {
+                padding: 22px 18px;
+            }
+            
+            .card-title {
+                font-size: 1.3rem;
+            }
+            
+            input {
+                padding: 14px 16px;
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 14px 20px;
+                font-size: 1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-name {
+                font-size: 1.35rem;
+                min-height: auto;
+            }
+            
+            .empty-icon {
+                font-size: 5rem;
+            }
+            
+            .empty-title {
+                font-size: 1.7rem;
+            }
+            
+            .empty-text {
+                font-size: 1.05rem;
+            }
+            
+            .toast {
+                left: 20px;
+                right: 20px;
+                width: calc(100% - 40px);
+                text-align: center;
+                font-size: 0.95rem;
+                padding: 15px 20px;
+            }
+            
+            footer {
+                padding: 20px 0;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Project Actions */
+        .project-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            color: white;
+            font-size: 1.1rem;
+            transition: var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.1);
+        }
+
+        .delete-btn:hover {
+            background: rgba(255, 112, 67, 0.2);
+            color: var(--accent);
+        }
+
+        .edit-btn:hover {
+            background: rgba(38, 166, 154, 0.2);
+            color: var(--secondary);
+        }
+
+        /* Confirmation Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-normal);
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--darker);
+            border-radius: var(--border-radius-md);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px);
+            transition: var(--transition-normal);
+            border: 1px solid var(--glass-border);
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .modal-message {
+            font-size: 1.15rem;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 14px 28px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .confirm-btn {
+            background: linear-gradient(to right, var(--accent), #ff5722);
+            color: white;
+            border: none;
+        }
+
+        .cancel-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid var(--glass-border);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .confirm-btn:hover {
+            box-shadow: 0 4px 15px rgba(255, 112, 67, 0.4);
+        }
+
+        .cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Decorative Elements */
+        .decoration {
+            position: absolute;
+            z-index: 0;
+        }
+
+        .decoration-1 {
+            top: 15%;
+            left: 5%;
+            width: 120px;
+            height: 120px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .decoration-2 {
+            bottom: 10%;
+            right: 5%;
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .decoration-3 {
+            top: 40%;
+            right: 8%;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            opacity: 0.07;
+            transform: rotate(30deg);
+        }
+
+        /* Animation for project cards on load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-load {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration decoration-1"></div>
+    <div class="decoration decoration-2"></div>
+    <div class="decoration decoration-3"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <i class="fas fa-cube logo-icon floating"></i>
+                <h1 class="logo-text">Nexuss Projects</h1>
+            </div>
+            <p class="logo-subtitle">Elegant showcase for your creative projects. Add, view, and access all your demos in one beautiful place.</p>
+            <div class="divider"></div>
+        </header>
+
+        <div class="main-content">
+            <div class="card form-card animate-on-load" style="animation-delay: 0.1s">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fas fa-plus-circle"></i> Add New Project</h2>
+                </div>
+                <form id="project-form">
+                    <div class="form-group">
+                        <label for="project-name"><i class="fas fa-tag"></i> Project Name</label>
+                        <input type="text" id="project-name" placeholder="e.g., Portfolio Website, Task Manager App" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-link"><i class="fas fa-link"></i> Project URL</label>
+                        <input type="url" id="project-link" placeholder="https://your-project-url.com" required>
+                    </div>
+                    <button type="submit" class="btn">
+                        <i class="fas fa-paper-plane"></i> Add to Collection
+                    </button>
+                </form>
+            </div>
+
+            <div class="projects-section animate-on-load" style="animation-delay: 0.2s">
+                <h2 class="section-title">My Project Collection</h2>
+                <div class="card" style="background: rgba(0, 0, 0, 0.2);">
+                    <div class="projects-grid" id="projects-container">
+                        <!-- Projects will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="animate-on-load" style="animation-delay: 0.3s">
+            <p>Built with passion for <span class="signature">Nexuss0781</span></p>
+            <p class="copyright">© <span id="year"></span> Nexuss Projects. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span>Project added successfully!</span>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content">
+            <h3 class="modal-title"><i class="fas fa-exclamation-triangle"></i> Confirm Delete</h3>
+            <p class="modal-message">Are you sure you want to remove this project from your collection? This action cannot be undone.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel-btn" id="cancel-delete">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="modal-btn confirm-btn" id="confirm-delete">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set current year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // DOM Elements
+            const projectForm = document.getElementById('project-form');
+            const projectNameInput = document.getElementById('project-name');
+            const projectLinkInput = document.getElementById('project-link');
+            const projectsContainer = document.getElementById('projects-container');
+            const toast = document.getElementById('toast');
+            const confirmModal = document.getElementById('confirm-modal');
+            const cancelDeleteBtn = document.getElementById('cancel-delete');
+            const confirmDeleteBtn = document.getElementById('confirm-delete');
+            
+            // Current project being deleted
+            let projectToDelete = null;
+            
+            // Load projects from localStorage
+            let projects = JSON.parse(localStorage.getItem('nexussProjects')) || [];
+            
+            // Initialize the UI
+            renderProjects();
+            
+            // Form submission
+            projectForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = projectNameInput.value.trim();
+                const link = projectLinkInput.value.trim();
+                
+                if (!name || !link) {
+                    showToast('Please fill in all fields', 'error');
+                    return;
+                }
+                
+                // Add new project
+                const newProject = {
+                    id: Date.now(),
+                    name,
+                    link
+                };
+                
+                projects.push(newProject);
+                saveProjects();
+                renderProjects();
+                
+                // Reset form
+                projectForm.reset();
+                showToast('Project added to your collection! ✨');
+                
+                // Scroll to projects section smoothly
+                document.querySelector('.projects-section').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+            
+            // Delete project confirmation
+            cancelDeleteBtn.addEventListener('click', () => {
+                confirmModal.classList.remove('show');
+                projectToDelete = null;
+            });
+            
+            confirmDeleteBtn.addEventListener('click', () => {
+                if (projectToDelete) {
+                    deleteProject(projectToDelete);
+                    confirmModal.classList.remove('show');
+                    projectToDelete = null;
+                }
+            });
+            
+            // Close modal when clicking outside
+            confirmModal.addEventListener('click', (e) => {
+                if (e.target === confirmModal) {
+                    confirmModal.classList.remove('show');
+                    projectToDelete = null;
+                }
+            });
+            
+            // Render projects
+            function renderProjects() {
+                if (projects.length === 0) {
+                    renderEmptyState();
+                    return;
+                }
+                
+                projectsContainer.innerHTML = '';
+                
+                // Animate cards with staggered delay
+                projects.forEach((project, index) => {
+                    const projectCard = document.createElement('div');
+                    projectCard.className = 'project-card animate-on-load';
+                    projectCard.style.animationDelay = `${0.3 + index * 0.1}s`;
+                    projectCard.innerHTML = `
+                        <div class="project-icon-container">
+                            <i class="fas fa-gem project-icon"></i>
+                        </div>
+                        <h3 class="project-name">${escapeHtml(project.name)}</h3>
+                        <span class="project-link">${formatUrl(project.link)}</span>
+                        <div class="project-actions">
+                            <div class="action-btn edit-btn" title="Edit project">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <div class="action-btn delete-btn" title="Delete project" data-id="${project.id}">
+                                <i class="fas fa-trash"></i>
+                            </div>
+                        </div>
+                    `;
+                    
+                    projectCard.addEventListener('click', (e) => {
+                        if (!e.target.closest('.action-btn')) {
+                            window.open(project.link, '_blank');
+                        }
+                    });
+                    
+                    projectsContainer.appendChild(projectCard);
+                });
+                
+                // Add delete event listeners
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const projectId = parseInt(btn.getAttribute('data-id'));
+                        projectToDelete = projectId;
+                        confirmModal.classList.add('show');
+                    });
+                });
+                
+                // Add edit event listeners (placeholder for future implementation)
+                document.querySelectorAll('.edit-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        showToast('Edit feature coming soon!', 'info');
+                    });
+                });
+            }
+            
+            // Render empty state
+            function renderEmptyState() {
+                projectsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox empty-icon floating"></i>
+                        <h3 class="empty-title">Your project collection is empty</h3>
+                        <p class="empty-text">
+                            Start building your portfolio by adding your first project. It will appear here as a beautiful card that you can click to visit instantly.
+                        </p>
+                        <div class="project-actions">
+                            <div class="action-btn" style="background: rgba(126, 87, 194, 0.2); color: var(--primary);">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Delete a project
+            function deleteProject(projectId) {
+                projects = projects.filter(project => project.id !== projectId);
+                saveProjects();
+                renderProjects();
+                showToast('Project removed from collection', 'success');
+            }
+            
+            // Save projects to localStorage
+            function saveProjects() {
+                localStorage.setItem('nexussProjects', JSON.stringify(projects));
+            }
+            
+            // Show toast notification
+            function showToast(message, type = 'success') {
+                toast.textContent = message;
+                toast.className = `toast ${type === 'error' ? 'error' : 'success'}`;
+                
+                // Add icon based on type
+                const icon = document.createElement('i');
+                icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+                toast.prepend(icon);
+                
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3500);
+            }
+            
+            // Escape HTML to prevent XSS
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "<")
+                    .replace(/>/g, ">")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+            
+            // Format URL for display
+            function formatUrl(url) {
+                return url.replace(/https?:\/\//, '').replace(/\/$/, '');
+            }
+            
+            // Add some elegant demo projects for first-time users
+            if (projects.length === 0) {
+                const demoProjects = [
+                    {
+                        id: 1,
+                        name: "Quantum Dashboard",
+                        link: "https://quantum-dashboard.example.com"
+                    },
+                    {
+                        id: 2,
+                        name: "Aurora E-commerce",
+                        link: "https://aurora-shop.example.com"
+                    },
+                    {
+                        id: 3,
+                        name: "Nebula Portfolio",
+                        link: "https://nebula-portfolio.example.com"
+                    }
+                ];
+                
+                projects = demoProjects;
+                saveProjects();
+                renderProjects();
+                showToast('Welcome to Nexuss Projects! Demo projects added to get you started.', 'success');
+            }
+        });
+    </script>
+</body>
+</html>
