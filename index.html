@@ -911,11 +911,12 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             // Set current year in footer
             document.getElementById('year').textContent = new Date().getFullYear();
-            
+
             // DOM Elements
             const projectForm = document.getElementById('project-form');
             const projectNameInput = document.getElementById('project-name');
@@ -925,18 +926,42 @@
             const confirmModal = document.getElementById('confirm-modal');
             const cancelDeleteBtn = document.getElementById('cancel-delete');
             const confirmDeleteBtn = document.getElementById('confirm-delete');
-            
+
             // Current project being deleted
             let projectToDelete = null;
-            
-            // Load projects from localStorage
-            let projects = JSON.parse(localStorage.getItem('nexussProjects')) || [];
+
+            // Initialize sql.js
+            const SQL = await initSqlJs({
+                locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}`
+            });
+
+            // Create a new database
+            const db = new SQL.Database();
+
+            // Create the projects table if it doesn't exist
+            db.run("CREATE TABLE IF NOT EXISTS projects (id INTEGER PRIMARY KEY, name TEXT, link TEXT);");
+
+
+            // Load projects from the database
+            async function loadProjects() {
+                const res = db.exec("SELECT * FROM projects");
+                if (res.length > 0) {
+                    const projects = res[0].values.map(row => ({
+                        id: row[0],
+                        name: row[1],
+                        link: row[2]
+                    }));
+                    renderProjects(projects);
+                } else {
+                    renderEmptyState();
+                }
+            }
             
             // Initialize the UI
-            renderProjects();
+            await loadProjects();
             
             // Form submission
-            projectForm.addEventListener('submit', (e) => {
+            projectForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
                 const name = projectNameInput.value.trim();
@@ -947,17 +972,11 @@
                     return;
                 }
                 
-                // Add new project
-                const newProject = {
-                    id: Date.now(),
-                    name,
-                    link
-                };
-                
-                projects.push(newProject);
-                saveProjects();
-                renderProjects();
-                
+                // Add new project to the database
+                db.run("INSERT INTO projects (name, link) VALUES (?, ?)", [name, link]);
+
+                await loadProjects();
+
                 // Reset form
                 projectForm.reset();
                 showToast('Project added to your collection! ✨');
@@ -975,9 +994,9 @@
                 projectToDelete = null;
             });
             
-            confirmDeleteBtn.addEventListener('click', () => {
+            confirmDeleteBtn.addEventListener('click', async () => {
                 if (projectToDelete) {
-                    deleteProject(projectToDelete);
+                    await deleteProject(projectToDelete);
                     confirmModal.classList.remove('show');
                     projectToDelete = null;
                 }
@@ -992,7 +1011,7 @@
             });
             
             // Render projects
-            function renderProjects() {
+            function renderProjects(projects) {
                 if (projects.length === 0) {
                     renderEmptyState();
                     return;
@@ -1068,16 +1087,10 @@
             }
             
             // Delete a project
-            function deleteProject(projectId) {
-                projects = projects.filter(project => project.id !== projectId);
-                saveProjects();
-                renderProjects();
+            async function deleteProject(projectId) {
+                db.run("DELETE FROM projects WHERE id = ?", [projectId]);
+                await loadProjects();
                 showToast('Project removed from collection', 'success');
-            }
-            
-            // Save projects to localStorage
-            function saveProjects() {
-                localStorage.setItem('nexussProjects', JSON.stringify(projects));
             }
             
             // Show toast notification
@@ -1113,28 +1126,28 @@
             }
             
             // Add some elegant demo projects for first-time users
-            if (projects.length === 0) {
+            const res = db.exec("SELECT COUNT(*) FROM projects");
+            if (res[0].values[0][0] === 0) {
                 const demoProjects = [
                     {
-                        id: 1,
                         name: "Quantum Dashboard",
                         link: "https://quantum-dashboard.example.com"
                     },
                     {
-                        id: 2,
                         name: "Aurora E-commerce",
                         link: "https://aurora-shop.example.com"
                     },
                     {
-                        id: 3,
                         name: "Nebula Portfolio",
                         link: "https://nebula-portfolio.example.com"
                     }
                 ];
                 
-                projects = demoProjects;
-                saveProjects();
-                renderProjects();
+                demoProjects.forEach(project => {
+                    db.run("INSERT INTO projects (name, link) VALUES (?, ?)", [project.name, project.link]);
+                });
+
+                await loadProjects();
                 showToast('Welcome to Nexuss Projects! Demo projects added to get you started.', 'success');
             }
         });
