@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Nexuss Projects</title>
+    <title>Login - Nexuss & Yob Projects</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #7e57c2;
-            --primary-dark: #5e35b1;
             --secondary: #26a69a;
             --accent: #ff7043;
             --dark: #1a1a2e;
@@ -130,14 +129,13 @@
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="card">
             <div class="logo-container">
                 <i class="fas fa-cube logo-icon"></i>
-                <h1 class="logo-text">Nexuss</h1>
+                <h1 class="logo-text">Admin Login</h1>
             </div>
-            <p class="login-title">Sign in to access your projects</p>
+            <p class="login-title">Sign in for full access</p>
             
             <form id="login-form">
                 <div class="form-group">
@@ -168,7 +166,6 @@
             const loginForm = document.getElementById('login-form');
             const errorMessage = document.getElementById('error-message');
 
-            // Hardcoded user credentials
             const users = [
                 { username: 'nexuss078', password: 'classicboy0781' },
                 { username: 'yobfelex', password: 'yobyon' }
@@ -185,14 +182,11 @@
                 );
 
                 if (validUser) {
-                    // On successful login, set a flag in sessionStorage
                     sessionStorage.setItem('isAuthenticated', 'true');
-                    // Redirect to the main projects page
+                    sessionStorage.setItem('loggedInUser', validUser.username); // <-- Store username
                     window.location.href = 'index.html';
                 } else {
-                    // Show error message
                     errorMessage.style.display = 'block';
-                    // Vibrate the card for feedback
                     const card = document.querySelector('.card');
                     card.style.animation = 'shake 0.4s';
                     setTimeout(() => card.style.animation = '', 400);
@@ -202,12 +196,8 @@
     </script>
     <style>
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
+            0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); }
         }
     </style>
 </body>
 </html>
-
