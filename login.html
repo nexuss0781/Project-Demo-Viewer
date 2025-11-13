@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Nexuss Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7e57c2;
+            --primary-dark: #5e35b1;
+            --secondary: #26a69a;
+            --accent: #ff7043;
+            --dark: #1a1a2e;
+            --darker: #11111d;
+            --light: #f8f9ff;
+            --border-radius-md: 16px;
+            --transition-normal: all 0.3s ease;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-blur: 12px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container { max-width: 450px; width: 100%; }
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: var(--border-radius-md);
+            padding: 40px 35px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .logo-icon {
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .login-title {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+        .form-group { margin-bottom: 24px; text-align: left; }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .input-wrapper {
+            position: relative;
+        }
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.4);
+        }
+        input {
+            width: 100%;
+            padding: 14px 18px 14px 45px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 1rem;
+            transition: var(--transition-normal);
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(38, 166, 154, 0.3);
+        }
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            width: 100%;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+        .error-message {
+            color: var(--accent);
+            background: rgba(255, 112, 67, 0.15);
+            border: 1px solid rgba(255, 112, 67, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 20px;
+            display: none; /* Hidden by default */
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <div class="logo-container">
+                <i class="fas fa-cube logo-icon"></i>
+                <h1 class="logo-text">Nexuss</h1>
+            </div>
+            <p class="login-title">Sign in to access your projects</p>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            
+            <div class="error-message" id="error-message">
+                <i class="fas fa-exclamation-circle"></i> Invalid credentials. Please try again.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('login-form');
+            const errorMessage = document.getElementById('error-message');
+
+            // Hardcoded user credentials
+            const users = [
+                { username: 'nexuss078', password: 'classicboy0781' },
+                { username: 'yobfelex', password: 'yobyon' }
+            ];
+
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const usernameInput = document.getElementById('username').value;
+                const passwordInput = document.getElementById('password').value;
+
+                const validUser = users.find(
+                    user => user.username === usernameInput && user.password === passwordInput
+                );
+
+                if (validUser) {
+                    // On successful login, set a flag in sessionStorage
+                    sessionStorage.setItem('isAuthenticated', 'true');
+                    // Redirect to the main projects page
+                    window.location.href = 'index.html';
+                } else {
+                    // Show error message
+                    errorMessage.style.display = 'block';
+                    // Vibrate the card for feedback
+                    const card = document.querySelector('.card');
+                    card.style.animation = 'shake 0.4s';
+                    setTimeout(() => card.style.animation = '', 400);
+                }
+            });
+        });
+    </script>
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</body>
+</html>
+
